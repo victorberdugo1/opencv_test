@@ -45,7 +45,7 @@
 #ifndef OPENCV_CORE_CVDEF_H
 #define OPENCV_CORE_CVDEF_H
 
-#include "opencv2/core/version.hpp"
+#include "version.hpp"
 
 //! @addtogroup core_utils
 //! @{
@@ -187,7 +187,7 @@ namespace cv {
 #include <limits.h>
 #endif
 
-#include "opencv2/core/hal/interface.h"
+#include "hal/interface.h"
 
 #if defined __ICL
 #  define CV_ICC   __ICL

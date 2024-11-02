@@ -53,8 +53,8 @@
 #  error persistence.hpp header must be compiled as C++
 #endif
 
-#include "opencv2/core/types.hpp"
-#include "opencv2/core/mat.hpp"
+#include "types.hpp"
+#include "mat.hpp"
 
 namespace cv {
 

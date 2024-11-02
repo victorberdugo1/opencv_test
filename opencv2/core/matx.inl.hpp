@@ -9,7 +9,7 @@
 #  error matx.inl.hpp header must be compiled as C++
 #endif
 
-#include "opencv2/core/matx.hpp"
+#include "matx.hpp"
 
 namespace cv
 {

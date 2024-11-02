@@ -48,10 +48,10 @@
 #  error matx.hpp header must be compiled as C++
 #endif
 
-#include "opencv2/core/cvdef.h"
-#include "opencv2/core/base.hpp"
-#include "opencv2/core/traits.hpp"
-#include "opencv2/core/saturate.hpp"
+#include "cvdef.h"
+#include "base.hpp"
+#include "traits.hpp"
+#include "saturate.hpp"
 
 #include <initializer_list>
 
@@ -539,6 +539,6 @@ Vec<_Tp, 4>& operator *= (Vec<_Tp, 4>& v1, const Vec<_Tp, 4>& v2);
 
 } // cv
 
-#include "opencv2/core/matx.inl.hpp"
+#include "matx.inl.hpp"
 
 #endif // OPENCV_CORE_MATX_HPP

@@ -5,7 +5,7 @@
 #ifndef OPENCV_CORE_CHECK_HPP
 #define OPENCV_CORE_CHECK_HPP
 
-#include <opencv2/core/base.hpp>
+#include "base.hpp"
 
 namespace cv {
 
