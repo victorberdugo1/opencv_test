@@ -1,4 +1,5 @@
 //g++ -I./include/opencv4 -L./lib main.cpp -o my_program -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_videoio
+//export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH
 
 #include <iostream>
 #include "opencv2/highgui.hpp"
