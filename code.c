@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 //#include <pigpio.h>
+//ffmpeg -f rawvideo -vcodec rawvideo -s 9152x6944 -pix_fmt gray10le -i capture.raw output.png
 
 #define STEP_PIN 27
 #define DIR_PIN 17
