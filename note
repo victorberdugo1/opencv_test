@@ -1,0 +1,231 @@
+libcamera-raw --help
+
+OPCIONES GENERALES:
+  -h, --help                     Muestra la ayuda
+  --version                      Muestra la versión del programa
+  --list-cameras                 Lista las cámaras disponibles
+  --camera <num>                 Selecciona la cámara a usar
+  -v, --verbose <nivel>          Nivel de verbosidad (0 = silencioso, 1 = normal, 2 = detallado)
+  -c, --config <archivo>         Carga opciones desde un archivo de configuración
+
+PARÁMETROS DE CAPTURA:
+  --width <px>                   Ancho de la imagen (0 = por defecto)
+  --height <px>                  Alto de la imagen (0 = por defecto)
+  -t, --timeout <ms>             Tiempo de ejecución en milisegundos
+  -o, --output <archivo>         Nombre del archivo de salida
+  --rawfull                      Usa imágenes RAW a resolución completa
+  --flush                        Fuerza el guardado inmediato de datos
+  --frames <n>                   Captura un número exacto de cuadros
+
+CONFIGURACIÓN DE LA VISTA PREVIA:
+  -n, --nopreview                No mostrar ventana de previsualización
+  -p, --preview x,y,ancho,alto   Configurar ventana de previsualización
+  -f, --fullscreen               Muestra la vista previa en pantalla completa
+  --qt-preview                   Usa una previsualización basada en Qt
+  --viewfinder-width <px>        Ancho del visor
+  --viewfinder-height <px>       Alto del visor
+  --viewfinder-buffer-count <n>  Número de búferes del visor en uso
+
+CONTROLES DE IMAGEN:
+  --shutter <µs>                 Velocidad de obturación en microsegundos
+  --gain <num>                   Valor de ganancia manual
+  --metering <modo>              Modo de medición (centre, spot, average, custom)
+  --exposure <modo>              Modo de exposición (normal, sport)
+  --ev <valor>                   Compensación de exposición (EV)
+  --awb <modo>                   Balance de blancos (auto, daylight, cloudy, etc.)
+  --awbgains <r,b>               Ajuste manual de las ganancias de balance de blancos
+  --brightness <valor>           Ajuste de brillo (-1.0 a 1.0)
+  --contrast <valor>             Ajuste de contraste (1.0 = normal)
+  --saturation <valor>           Ajuste de saturación (1.0 = normal, 0.0 = escala de grises)
+  --sharpness <valor>            Ajuste de nitidez (1.0 = normal)
+  --denoise <modo>               Modo de reducción de ruido (auto, off, cdn_off, etc.)
+
+ROTACIÓN Y TRANSFORMACIONES:
+  --hflip                        Invierte la imagen horizontalmente
+  --vflip                        Invierte la imagen verticalmente
+  --rotation <0/180>             Rota la imagen
+  --roi <x,y,ancho,alto>         Define un recorte (zoom digital)
+
+ENFOQUE Y LENTE:
+  --autofocus-mode <modo>        Modo de autoenfoque (manual, auto, continuous)
+  --autofocus-range <rango>      Rango de enfoque (normal, macro, full)
+  --autofocus-speed <velocidad>  Velocidad de enfoque (normal, fast)
+  --autofocus-window <x,y,w,h>   Región de autoenfoque
+  --lens-position <pos>          Posición del lente (0 = infinito, default = hiperfocal)
+
+METADATOS:
+  --metadata <archivo>           Guarda metadatos en un archivo
+  --metadata-format <formato>    Formato de metadatos (json o txt)
+
+MODO HDR:
+  --hdr                          Activa o desactiva el modo de Alto Rango Dinámico (HDR)
+
+PARÁMETROS DE BUFFER Y PROCESAMIENTO:
+  --buffer-count <n>             Número de buffers en uso
+  --post-process-file <archivo>  Configuración del post-procesamiento
+
+EJEMPLO DE USO:
+  libcamera-raw -o imagen.raw --width 1920 --height 1080 --shutter 5000 --awb auto --timeout 2000
+
+libcamera-still --help
+
+USO BÁSICO:
+  -h, --help                     Muestra este mensaje de ayuda
+  --version                      Muestra la versión de la aplicación
+  --list-cameras                 Lista las cámaras disponibles
+  --camera <num>                 Selecciona la cámara a usar (por índice)
+
+CONFIGURACIÓN DE IMAGEN:
+  --width <px>                   Especifica el ancho de la imagen
+  --height <px>                  Especifica la altura de la imagen
+  -o, --output <archivo>         Nombre del archivo de salida
+  --quality <num>                Calidad JPEG (por defecto 93)
+  --encoding <formato>           Formato de salida: jpg, png, rgb, bmp, yuv420
+  --raw                          Guarda también el archivo RAW en formato DNG
+
+PREVISUALIZACIÓN:
+  -n, --nopreview                No mostrar ventana de previsualización
+  -p, --preview x,y,ancho,alto   Configurar ventana de previsualización
+  -f, --fullscreen               Usar previsualización en pantalla completa
+
+TIEMPO Y CAPTURA:
+  -t, --timeout <ms>             Duración en milisegundos antes de capturar (por defecto 5000 ms)
+  --timelapse <ms>               Intervalo entre capturas en modo timelapse
+  -k, --keypress                 Capturar imagen al presionar ENTER
+  -s, --signal                   Capturar imagen al recibir una señal
+
+CONTROL DE EXPOSICIÓN Y ENFOQUE:
+  --shutter <µs>                 Velocidad de obturación en microsegundos
+  --gain <num>                   Valor de ganancia manual
+  --awb <modo>                   Modo de balance de blancos (auto, daylight, cloudy, etc.)
+  --metering <modo>              Modo de medición (centre, spot, average, custom)
+  --autofocus-mode <modo>        Modo de autoenfoque (manual, auto, continuous)
+  --autofocus-range <rango>      Rango de autoenfoque (normal, macro, full)
+
+AJUSTES DE IMAGEN:
+  --brightness <valor>           Ajusta el brillo (-1.0 a 1.0)
+  --contrast <valor>             Ajusta el contraste (1.0 = normal)
+  --saturation <valor>           Ajusta la saturación (1.0 = normal, 0.0 = escala de grises)
+  --sharpness <valor>            Ajusta la nitidez (1.0 = normal)
+  --hflip                        Invierte la imagen horizontalmente
+  --vflip                        Invierte la imagen verticalmente
+  --rotation <grados>            Rota la imagen (0 o 180)
+
+METADATOS:
+  --metadata <archivo>           Guarda metadatos en un archivo (o "-" para salida estándar)
+  --metadata-format <formato>    Formato de metadatos: txt o json
+
+VARIOS:
+  --datetime                     Usa fecha y hora en el nombre del archivo
+  --timestamp                    Usa timestamp del sistema en el nombre del archivo
+  --latest <nombre>              Crea un enlace simbólico a la última imagen capturada
+
+Ejemplo de uso:
+  libcamera-still -o foto.jpg --width 1920 --height 1080 --awb auto --timeout 2000
+  
+libcamera-jpeg --help
+Valid options are:
+  -h [ --help ] [=arg(=1)] (=0)         Print this help message
+  --version [=arg(=1)] (=0)             Displays the build version number
+  --list-cameras [=arg(=1)] (=0)        Lists the available cameras attached to the system.
+  --camera arg (=0)                     Chooses the camera to use. To list the available indexes, use the 
+                                        --list-cameras option.
+  -v [ --verbose ] [=arg(=2)] (=1)      Set verbosity level. Level 0 is no output, 1 is default, 2 is verbose.
+  -c [ --config ] [=arg(=config.txt)]   Read the options from a file. If no filename is specified, default to 
+                                        config.txt. In case of duplicate options, the ones provided on the command line
+                                        will be used. Note that the config file must only contain the long form 
+                                        options.
+  --info-text arg (=#%frame (%fps fps) exp %exp ag %ag dg %dg)
+                                        Sets the information string on the titlebar. Available values:
+                                        %frame (frame number)
+                                        %fps (framerate)
+                                        %exp (shutter speed)
+                                        %ag (analogue gain)
+                                        %dg (digital gain)
+                                        %rg (red colour gain)
+                                        %bg (blue colour gain)
+                                        %focus (focus FoM value)
+                                        %aelock (AE locked status)
+                                        %lp (lens position, if known)
+                                        %afstate (AF state, if supported)
+  --width arg (=0)                      Set the output image width (0 = use default value)
+  --height arg (=0)                     Set the output image height (0 = use default value)
+  -t [ --timeout ] arg (=5000)          Time (in ms) for which program runs
+  -o [ --output ] arg                   Set the output file name
+  --post-process-file arg               Set the file name for configuring the post-processing
+  --rawfull [=arg(=1)] (=0)             Force use of full resolution raw frames
+  -n [ --nopreview ] [=arg(=1)] (=0)    Do not show a preview window
+  -p [ --preview ] arg (=0,0,0,0)       Set the preview window dimensions, given as x,y,width,height e.g. 0,0,640,480
+  -f [ --fullscreen ] [=arg(=1)] (=0)   Use a fullscreen preview window
+  --qt-preview [=arg(=1)] (=0)          Use Qt-based preview window (WARNING: causes heavy CPU load, fullscreen not 
+                                        supported)
+  --hflip [=arg(=1)] (=0)               Request a horizontal flip transform
+  --vflip [=arg(=1)] (=0)               Request a vertical flip transform
+  --rotation arg (=0)                   Request an image rotation, 0 or 180
+  --roi arg (=0,0,0,0)                  Set region of interest (digital zoom) e.g. 0.25,0.25,0.5,0.5
+  --shutter arg (=0)                    Set a fixed shutter speed in microseconds
+  --analoggain arg (=0)                 Set a fixed gain value (synonym for 'gain' option)
+  --gain arg                            Set a fixed gain value
+  --metering arg (=centre)              Set the metering mode (centre, spot, average, custom)
+  --exposure arg (=normal)              Set the exposure mode (normal, sport)
+  --ev arg (=0)                         Set the EV exposure compensation, where 0 = no change
+  --awb arg (=auto)                     Set the AWB mode (auto, incandescent, tungsten, fluorescent, indoor, daylight, 
+                                        cloudy, custom)
+  --awbgains arg (=0,0)                 Set explict red and blue gains (disable the automatic AWB algorithm)
+  --flush [=arg(=1)] (=0)               Flush output data as soon as possible
+  --wrap arg (=0)                       When writing multiple output files, reset the counter when it reaches this 
+                                        number
+  --brightness arg (=0)                 Adjust the brightness of the output images, in the range -1.0 to 1.0
+  --contrast arg (=1)                   Adjust the contrast of the output image, where 1.0 = normal contrast
+  --saturation arg (=1)                 Adjust the colour saturation of the output, where 1.0 = normal and 0.0 = 
+                                        greyscale
+  --sharpness arg (=1)                  Adjust the sharpness of the output image, where 1.0 = normal sharpening
+  --framerate arg (=-1)                 Set the fixed framerate for preview and video modes
+  --denoise arg (=auto)                 Sets the Denoise operating mode: auto, off, cdn_off, cdn_fast, cdn_hq
+  --viewfinder-width arg (=0)           Width of viewfinder frames from the camera (distinct from the preview window 
+                                        size
+  --viewfinder-height arg (=0)          Height of viewfinder frames from the camera (distinct from the preview window 
+                                        size)
+  --tuning-file arg (=-)                Name of camera tuning file to use, omit this option for libcamera default 
+                                        behaviour
+  --lores-width arg (=0)                Width of low resolution frames (use 0 to omit low resolution stream
+  --lores-height arg (=0)               Height of low resolution frames (use 0 to omit low resolution stream
+  --mode arg                            Camera mode as W:H:bit-depth:packing, where packing is P (packed) or U 
+                                        (unpacked)
+  --viewfinder-mode arg                 Camera mode for preview as W:H:bit-depth:packing, where packing is P (packed) 
+                                        or U (unpacked)
+  --buffer-count arg (=0)               Number of in-flight requests (and buffers) configured for video, raw, and 
+                                        still.
+  --viewfinder-buffer-count arg (=0)    Number of in-flight requests (and buffers) configured for preview window.
+  --autofocus-mode arg (=default)       Control to set the mode of the AF (autofocus) algorithm.(manual, auto, 
+                                        continuous)
+  --autofocus-range arg (=normal)       Set the range of focus distances that is scanned.(normal, macro, full)
+  --autofocus-speed arg (=normal)       Control that determines whether the AF algorithm is to move the lens as quickly
+                                        as possible or more steadily.(normal, fast)
+  --autofocus-window arg (=0,0,0,0)     Sets AfMetering to  AfMeteringWindows an set region used, e.g. 
+                                        0.25,0.25,0.5,0.5
+  --lens-position arg                   Set the lens to a particular focus position, expressed as a reciprocal distance
+                                        (0 moves the lens to infinity), or "default" for the hyperfocal distance
+  --hdr [=arg(=1)] (=0)                 Enable (1) or disable (0) High Dynamic Range, where supported
+  --metadata arg                        Save captured image metadata to a file or "-" for stdout
+  --metadata-format arg (=json)         Format to save the metadata in, either txt or json (requires --metadata)
+  -q [ --quality ] arg (=93)            Set the JPEG quality parameter
+  -x [ --exif ] arg                     Add these extra EXIF tags to the output file
+  --timelapse arg (=0)                  Time interval (in ms) between timelapse captures
+  --framestart arg (=0)                 Initial frame counter value for timelapse captures
+  --datetime [=arg(=1)] (=0)            Use date format for output file names
+  --timestamp [=arg(=1)] (=0)           Use system timestamps for output file names
+  --restart arg (=0)                    Set JPEG restart interval
+  -k [ --keypress ] [=arg(=1)] (=0)     Perform capture when ENTER pressed
+  -s [ --signal ] [=arg(=1)] (=0)       Perform capture when signal received
+  --thumb arg (=320:240:70)             Set thumbnail parameters as width:height:quality, or none
+  -e [ --encoding ] arg (=jpg)          Set the desired output encoding, either jpg, png, rgb, bmp or yuv420
+  -r [ --raw ] [=arg(=1)] (=0)          Also save raw file in DNG format
+  --latest arg                          Create a symbolic link with this name to most recent saved file
+  --immediate [=arg(=1)] (=0)           Perform first capture immediately, with no preview phase
+  --autofocus-on-capture [=arg(=1)] (=0)
+                                        Switch to AfModeAuto and trigger a scan just before capturing a still
+
+
+libcamera-jpeg --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 --exposure normal --shutter 30000 --analoggain 4.0 --denoise off --contrast 1 --saturation 1 -o output.jpg
+
