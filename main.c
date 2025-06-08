@@ -8,12 +8,12 @@ libcamera-raw --rawfull -t 10000 -o capture.dng --camera 0 --mode 9152:6944:10:P
 #include <unistd.h>
 #include <termios.h>
 #include <fcntl.h>
-//#include <pigpio.h>
+#include <pigpio.h>
 
 #define STEP_PIN 27
 #define DIR_PIN 17
 
-/*
+
 void move_motor(int step, int direction, int delay)
 {
     gpioWrite(DIR_PIN, direction);
@@ -25,7 +25,7 @@ void move_motor(int step, int direction, int delay)
 		usleep(delay);
 	}
 }
-*/
+
 
 void configurarTerminal() {
     struct termios tty;
@@ -77,16 +77,16 @@ int main() {
     printf("S para mover cantidad pasos\n");
     printf("ESC para salir\n");
 
-	int stepSize = 160;
+	int stepSize = 3200 / 20;
 	int stepCount = 0;
 	int stepRead = 0;
 
-    /*
+    
 	if (gpioInitialise() < 0) return 1;
 
 	gpioSetMode(STEP_PIN, PI_OUTPUT);
 	gpioSetMode(DIR_PIN, PI_OUTPUT);
-
+/*
 	pid_t pid = fork();
     if (pid < 0) {
         fprintf(stderr, "Error en fork()\n");
@@ -112,12 +112,12 @@ int main() {
                     if (buffer[1] == '[') {
                         if (buffer[2] == 'C')
 						{
-							//move_motor(stepSize, 0, 1000);
+							move_motor(stepSize, 0, 1000);
 							stepCount += stepSize;
 						}
                         else if (buffer[2] == 'D')
 						{
-							//move_motor(stepSize, 1, 1000);
+							move_motor(stepSize, 1, 1000);
 							stepCount -= stepSize;
 						}
                         printf("\r                            \r");
@@ -149,7 +149,7 @@ int main() {
 				fflush(stdout);
 				stepRead = leerNumero();
 				stepCount += stepRead;
-				//move_motor(stepRead, 0, 1000);
+				move_motor(stepRead, 0, 1000);
 				printf("\r                                                                            \r");
 				printf("Pasos acumulados: %d", stepCount);
 				fflush(stdout);
@@ -160,7 +160,7 @@ int main() {
 	}
 	//kill(pid, SIGTERM);
 	restaurarTerminal();
-	//gpioTerminate();
+	gpioTerminate();
 	return 0;
 }
 
