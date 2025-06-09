@@ -330,4 +330,4 @@ En bash
 libcamera-still --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 --exposure normal --shutter 40000 --analoggain 4.0 --awb tungsten --denoise cdn_off --contrast 1 --saturation 1 --hdr 0 --brightness 0 --sharpness 1 --quality 100 -t 0 -s --output "foto_%04d.jpg" & PID=$!; bash -c 'read -p "Vista previa activa. Presiona ENTER para capturar y cerrar..."; kill -USR1 '"$PID"'; sleep 2; kill '"$PID"
 
 
-libcamera-hello --qt-preview --preview 100,100,640,480 --info-text "LensPos: %lp" -t 0 2>/dev/null
+libcamera-hello --qt-preview --preview 700,20,640,480 --info-text "LensPos: %lp" -t 0 2>/dev/null

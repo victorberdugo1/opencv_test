@@ -113,7 +113,7 @@ int main()
 
 		execlp("libcamera-hello", "libcamera-hello",
 				"--qt-preview",
-				"--preview", "100,100,640,480",
+				"--preview", "700,20,640,480",
 				"--info-text", "LensPos: %lp",
 				"-t", "0",
 				(char *)NULL);
