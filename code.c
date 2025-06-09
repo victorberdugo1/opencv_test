@@ -60,7 +60,7 @@ void tomarPreview()
 {
     static int contador = 0;  // Se incrementa cada vez que se llama
     char nombreArchivo[64];
-    snprintf(nombreArchivo, sizeof(nombreArchivo), "jpeg_%04d.jpg", contador);
+    snprintf(nombreArchivo, sizeof(nombreArchivo), "jpeg_%06d.jpg", contador);
 
     pid_t pid = fork();
     if (pid == 0)

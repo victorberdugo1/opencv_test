@@ -1,3 +1,84 @@
+———Instructions———
+https://www.youtube.com/watch?v=TV7DLhQYSmI
+
+install Arducam 64
+
+wget -O install_pivariety_pkgs.sh https://github.com/ArduCAM/Arducam-Pivariety-V4L2-Driver/releases/download/install_script/install_pivariety_pkgs.sh
+
+chmod +x install_pivariety_pkgs.sh
+
+./install_pivariety_pkgs.sh -p libcamera_dev
+
+./install_pivariety_pkgs.sh -p libcamera_apps
+
+./install_pivariety_pkgs.sh -p 64mp_pi_hawk_eye_kernel_driver
+
+sudo nano /boot/config.txt
+
+add to config.txt
+
+dtoverlay=vc4-kms-v3d,cma-512
+-----------
+OPERATING
+
+auto focus preview
+libcamera-still --continue-autofocus -t 1000000 
+
+take a full quality auto focus photo without overwrite
+libcamera-still --autofocus --timestamp
+
+libcamera-still --nopreview --autofocus --timestamp
+
+
+Preview camera can adjust sizes width & height change numbers
+libcamera-still -t 0 --viewfinder-width 2312 --viewfinder-height 1736
+----------
+setup manual focus
+
+git clone https://github.com/ArduCAM/Arducam-Pivariety-V4L2-Driver
+
+cd Arducam-Pivariety-V4L2-Driver/focus
+
+or
+file manager navigate to /home/pi/Arducam-Pivariety-V4L2-Driver/focus
+press F4
+
+python3 FocuserExample.py -d /dev/v4l-subdev1
+or
+python3 FocuserExample.py -d /dev/v4l-subdev1 --focus-step 10
+
+open another terminal ctrl-alt-T
+
+libcamera-still -t 0 --viewfinder-width 2312 --viewfinder-height 1736
+
+click on controls terminal window
+
+press w enter s enter to zoom 
+move around with ijkl enter
+
+--------
+
+video test
+
+
+libcamera-vid -t 10000 --continue-autofocus -o pi.h264 --width 640 --height 480 --framerate 60 -n
+libcamera-vid -t 10000 -o test.h264 --width 1280 --height 720
+--------
+
+libcamera-hello --autofocus -f
+libcamera-still --help
+libcamera-vid --help
+
+--codec arg (=h264)                   Set the codec to use, either h264, mjpeg or yuv420
+
+Banding fix:
+
+About the banding problem:
+
+We have confirmed that the denoise feature, which is done by RPI's ISP, has glitches whenever you try to take pics of resolutions exceeding 16MP.
+We've forwarded our findings to the foundation, so before they fix it, the workaround for now would be to turn off the denoise with --denoise cdn_off.
+
+
 libcamera-raw --help
 
 OPCIONES GENERALES:
@@ -227,5 +308,23 @@ Valid options are:
                                         Switch to AfModeAuto and trigger a scan just before capturing a still
 
 
-libcamera-jpeg --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 --exposure normal --shutter 30000 --analoggain 4.0 --denoise off --contrast 1 --saturation 1 -o output.jpg
 
+libcamera-jpeg --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 --exposure normal --shutter 30000 --analoggain 4.0 --awb tungsten --denoise cdn_off --contrast 1 --saturation 1 --hdr 0 --brightness 0 --sharpness 1 --quality 100 -t 0 -o output.jpg
+
+Sin el ERROR IPARPI 
+libcamera-jpeg --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 --exposure normal --shutter 40000 --analoggain 4.0 --awb tungsten --denoise cdn_off --contrast 1 --saturation 1 --hdr 0 --brightness 0 --sharpness 1 --quality 100 --nopreview -t 1 -o output.jpg 2>/dev/null
+
+
+
+Para saber lens-position
+--info-text "Focus: %focus LensPos: %lp"
+
+libcamera-jpeg --width 9152 --height 6944 --autofocus-mode continuous --exposure normal --shutter 30000 --analoggain 4.0 --awb tungsten --denoise cdn_off --contrast 1 --saturation 1 --hdr 0 --brightness 0 --sharpness 1 --quality 100 -t 0 -o output.jpg --info-text "LensPos: %lp"
+
+Para Capturar con enter
+libcamera-still --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 -t 0 -k --output "foto_%04d.jpg" 2>/dev/null
+libcamera-still --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 --exposure normal --shutter 40000 --analoggain 4.0 --awb tungsten --denoise cdn_off --contrast 1 --saturation 1 --hdr 0 --brightness 0 --sharpness 1 --quality 100 -t 0 -k --output "foto_%04d.jpg" 2>/dev/null
+
+Para que se cierre despues de enter
+En bash
+libcamera-still --width 9152 --height 6944 --autofocus-mode manual --lens-position 7 --exposure normal --shutter 40000 --analoggain 4.0 --awb tungsten --denoise cdn_off --contrast 1 --saturation 1 --hdr 0 --brightness 0 --sharpness 1 --quality 100 -t 0 -s --output "foto_%04d.jpg" & PID=$!; bash -c 'read -p "Vista previa activa. Presiona ENTER para capturar y cerrar..."; kill -USR1 '"$PID"'; sleep 2; kill '"$PID"
