@@ -1,0 +1,18 @@
+# requirements.txt — dependencias para filmstab_perfect.py
+# Core CV / image processing
+opencv-python>=4.5.0
+
+# Numerical computing
+numpy>=1.19.0
+
+# Image I/O / helpers (recomendadas)
+Pillow>=8.0.0          # lectura/escritura general de imágenes (PIL)
+tifffile>=2021.11.2    # escritura/lectura de TIFF 16-bit (útil si trabajas con uint16)
+
+# Optional (DNG / raw support)
+rawpy>=0.17.0          # soporte DNG/RAW (si vas a procesar .dng)
+
+# Herramientas útiles (opcional)
+# imageio>=2.9.0       # alternativa para I/O si se necesita
+# scikit-image>=0.18.0 # utilidades extra de procesamiento (opcional)
+
