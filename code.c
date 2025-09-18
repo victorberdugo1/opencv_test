@@ -1,5 +1,5 @@
 //
-//ffmpeg -f rawvideo -vcodec rawvideo -s 9152x6944 -pix_fmt gray10le -i capture.raw output.png
+// ffmpeg -f rawvideo -vcodec rawvideo -s 9152x6944 -pix_fmt gray10le -i capture.raw output.png
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +11,7 @@
 
 #define STEP_PIN 27
 #define DIR_PIN 17
+#define TRIGGER_PIN 22
 
 // Configurar lectura sin bloqueo del teclado
 void configurarTerminal()
@@ -55,7 +56,7 @@ void move_motor(int step, int direction, int delay)
 	}
 }
 
-// Función que ejecuta ffplay para mostrar la preview de la cámara
+/*/ Función que ejecuta ffplay para mostrar la preview de la cámara
 void tomarPreview()
 {
 	static int contador = 0;  // Se incrementa cada vez que se llama
@@ -89,6 +90,14 @@ void tomarPreview()
 	}
 
 	contador++;
+}*/
+
+void tomarPreview()
+{
+	gpioWrite(TRIGGER_PIN, 1);
+	usleep(1000000); // 1.0 sec
+	gpioWrite(TRIGGER_PIN, 0);
+	usleep(1700000); // 1.7 sec
 }
 
 int main(int argc, char *argv[])
@@ -100,17 +109,22 @@ int main(int argc, char *argv[])
 	}
 
 	if (gpioInitialise() < 0)
+	{
+		fprintf(stderr, "Error al inicializar GPIO.\n");
 		return 1;
+	}
 
 	gpioSetMode(STEP_PIN, PI_OUTPUT);
 	gpioSetMode(DIR_PIN, PI_OUTPUT);
+	gpioSetMode(TRIGGER_PIN, PI_OUTPUT);
 
 	int stepSize = atoi(argv[1]);
 	int stepCount = 0;
+	int ciclo = 0;
 
 	configurarTerminal();
 	printf("Modo: %d pasos por acción\n", stepSize);
-	printf("Ejecutando ciclo automático. Presiona 'ESC' para salir.\n\n");
+	printf("Ejecutando ciclo automático. Presiona 'ESC' para salir o espera que finalicen 2400 ciclos.\n\n");
 
 	while (1)
 	{
@@ -122,13 +136,23 @@ int main(int argc, char *argv[])
 				break;
 		}
 
-		tomarPreview();
+		if (ciclo >= 2400)
+		{
+			printf("Se alcanzaron los 2400 ciclos. Finalizando.\n");
+			break;
+		}
+
 		stepCount += stepSize;
-		printf("Moviendo motor: %d pasos. Total acumulado: %d\n\n", stepSize, stepCount);
+		printf("Ciclo %d: Moviendo motor %d pasos. Total acumulado: %d pasos\n\n", ciclo + 1, stepSize, stepCount);
+
 		move_motor(stepSize, 0, 1000);
+		tomarPreview();
+
+		ciclo++;
 	}
 
 	printf("Saliendo...\n");
+	gpioWrite(TRIGGER_PIN, 0);
 	restaurarTerminal();
 	gpioTerminate();
 	return 0;
