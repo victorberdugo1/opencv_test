@@ -87,13 +87,12 @@ int teclaPresionada()
 // =============================
 // Movimiento con aceleración
 // =============================
-void move_motor_accel(int totalSteps, int direction, int delayMin, int delayMax)
+void move_motor_triangular(int totalSteps, int direction, int delayMin, int delayMax)
 {
     gpioWrite(DIR_PIN, direction);
 
-    int accelSteps = totalSteps / 4; // 25% acelerar
-    int decelSteps = totalSteps / 4; // 25% frenar
-    int constSteps = totalSteps - accelSteps - decelSteps;
+    int accelSteps = totalSteps / 2; // mitad acelerar
+    int decelSteps = totalSteps - accelSteps; // mitad frenar
 
     int delay = delayMax;
 
@@ -109,15 +108,6 @@ void move_motor_accel(int totalSteps, int direction, int delayMin, int delayMax)
         if (delay < delayMin) delay = delayMin;
     }
 
-    // Velocidad constante
-    for (int i = 0; i < constSteps; i++)
-    {
-        gpioWrite(STEP_PIN, 1);
-        usleep(delayMin);
-        gpioWrite(STEP_PIN, 0);
-        usleep(delayMin);
-    }
-
     // Frenado
     for (int i = 0; i < decelSteps; i++)
     {
@@ -130,6 +120,7 @@ void move_motor_accel(int totalSteps, int direction, int delayMin, int delayMax)
         if (delay > delayMax) delay = delayMax;
     }
 }
+
 
 // =============================
 // Trigger de cámara
@@ -191,7 +182,7 @@ int main(int argc, char *argv[])
         printf("Ciclo %d: Moviendo motor %d pasos (con aceleración). Total acumulado: %d pasos\n\n", ciclo + 1, stepSize, stepCount);
 
         // Mueve motor con aceleración + frenado
-        move_motor_accel(stepSize, 0, 400, 1500);
+       move_motor_triangular(stepSize, 0, 400, 1500);
 
         // Dispara cámara
         tomarPreview();
